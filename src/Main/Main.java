@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import Components.PanelCover;
 import Components.PanelLoginAndRegister;
-import Main.AdminMain;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DecimalFormat;
@@ -23,7 +23,6 @@ public class Main extends javax.swing.JFrame {
     private PanelCover cover;
     private PanelLoginAndRegister LoginAndRegister;
     private boolean isLogin;
-    private boolean isAdmin;
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
@@ -36,6 +35,12 @@ public class Main extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
+        ActionListener eventRegister = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                register();
+            }
+        };
         
         ActionListener eventLogin = new ActionListener() {
             @Override
@@ -43,7 +48,7 @@ public class Main extends javax.swing.JFrame {
                 login();
             }
         };
-        LoginAndRegister = new PanelLoginAndRegister(eventLogin);
+        LoginAndRegister = new PanelLoginAndRegister(eventRegister,eventLogin);
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -104,15 +109,50 @@ public class Main extends javax.swing.JFrame {
             }
            }
         );
-        //LoginAndRegister.addEvent(new ActionListener() {
-        //    @Override
-        //    public void actionPerformed(ActionEvent ae) {
-        //        Adminlogin();
-        //    }
-        //   }
-        //);
+        LoginAndRegister.addEvent(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Adminlogin();
+            }
+           }
+        );
      
     }
+    
+    private void register(){
+        System.out.println("working");
+        String url = "jdbc:mysql://localhost:3306/fundaid";
+        String mysqluser = "root";
+        String mysqlpwd = "123456789";
+        String query = "insert into user values (?,?,?)";
+        String pwd = LoginAndRegister.getLoginPswd();
+        String Mail = LoginAndRegister.getLoginEmail();
+        String Name = LoginAndRegister.getUsrName();
+        System.out.println(Name);
+        try{
+            Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            
+            
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user WHERE email = ?");
+            checkStmt.setString(1, Mail);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+            JOptionPane.showMessageDialog(this, "Email ID already exists. Please use a different email ID.");
+            return; // Exit the method if email exists
+            }
+            
+            PreparedStatement stm = conn.prepareCall(query);
+            stm.setString(1,Mail);
+            stm.setString(2,Name);
+            stm.setString(3,pwd);
+            stm.execute();
+            JOptionPane.showMessageDialog(this, "Sign Up Successful\n Please head to LoginPage");
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+        
+    }   
     
     private void login(){
         System.out.println("working");
@@ -133,7 +173,7 @@ public class Main extends javax.swing.JFrame {
                 
                 if(realpwd.equals(pwd)){
                     this.dispose();
-                    AdminMain.main();
+                    // User Dashboard code goes here
                 }else{
                     JOptionPane.showMessageDialog(this,"Email or Password Incorrect");
                 }

@@ -19,7 +19,11 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     private ActionListener event;
     private String LoginEmail;
     private String LoginPswd;
+    private String UsrName;
 
+    public String getUsrName() {
+        return UsrName;
+    }
     public String getLoginEmail() {
         return LoginEmail;
     }
@@ -29,16 +33,16 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     }
     
     
-    public PanelLoginAndRegister(ActionListener eventLogin) {
+    public PanelLoginAndRegister(ActionListener eventRegister,ActionListener eventLogin) {
         initComponents();
-        initRegister();
+        initRegister(eventRegister);
         initLogin(eventLogin);
         login.setVisible(false);
         register.setVisible(true);
         
     }
     
-    private void initRegister(){
+    private void initRegister(ActionListener eventRegister){
         register.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[] push "));
         JLabel label = new JLabel("Create Account");
         label.setFont(new Font("sansserif", 1, 30));
@@ -60,7 +64,21 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
-        register.add(cmd, "w 40%, h 40"); 
+        register.add(cmd, "w 40%, h 40");
+        cmd.addActionListener(eventRegister);
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               System.out.println("working");
+               UsrName = txtUser.getText();
+               LoginEmail = txtEmail.getText().trim();
+               LoginPswd = String.valueOf(txtPass.getPassword());
+               txtUser.setText(null);
+               txtEmail.setText(null);
+               txtPass.setText(null);
+            }
+        });
+        
     }
     private void initLogin(ActionListener eventLogin){
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
@@ -82,12 +100,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         AdLogin.setContentAreaFilled(false);
         AdLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         login.add(AdLogin);
-        //AdLogin.addActionListener(new ActionListener() {
-        //    @Override
-        //    public void actionPerformed(ActionEvent ae) {
-        //        event.actionPerformed(ae);
-        //    }
-        //});
+        AdLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                event.actionPerformed(ae);
+            }
+        });
         Button cmd = new Button();
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(new Color(250, 250, 250));
