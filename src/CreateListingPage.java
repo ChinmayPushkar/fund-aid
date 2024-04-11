@@ -1,5 +1,6 @@
 import java.sql.*;
 import javax.swing.*;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -24,7 +25,13 @@ public class CreateListingPage extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(CreateListingPage.DISPOSE_ON_CLOSE);
     }
+    
+    
 
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,16 +46,16 @@ public class CreateListingPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Lname = new javax.swing.JTextField();
         Ldesc = new javax.swing.JTextField();
         AmtReq = new javax.swing.JTextField();
         AccDetails = new javax.swing.JTextField();
-        Sdate = new javax.swing.JTextField();
         Edate = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,8 +69,6 @@ public class CreateListingPage extends javax.swing.JFrame {
         jLabel4.setText("Enter Amount Required");
 
         jLabel5.setText("Enter Account Details");
-
-        jLabel6.setText("Enter Start Date (yyyy-mm-dd)");
 
         jLabel7.setText("Enter End Date (yyyy-mm-dd)");
 
@@ -81,6 +86,15 @@ public class CreateListingPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Category");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Health & Medical Supplies", "Food & Nutrition", "Shelter & Housing", "Educatioan", "Marriage", "Animal Welfare", "Disaster Relief", "Arts & Culture", "Technology & Innovation", "Enviromental Conservation" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,6 +102,17 @@ public class CreateListingPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(Lname, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,30 +125,18 @@ public class CreateListingPage extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(AccDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(AmtReq, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 19, Short.MAX_VALUE))))
+                                .addGap(0, 19, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addComponent(Lname, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(Sdate, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Edate, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Edate, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,20 +161,20 @@ public class CreateListingPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Sdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(Edate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(AccDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,24 +190,30 @@ public class CreateListingPage extends javax.swing.JFrame {
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
         String mysqlpwd = "root@123";
-        String query = "insert into listing (ListingName, Description, AmountRequired, AccountDetails, StartDate, EndDate) values (?,?,?,?,?,?);";
-        String insertCreatesQuery = "INSERT INTO creates (Email, ListingID) VALUES (?,?)";
+        String insertListingquery = "insert into listing (ListingName, Description, AmountRequired, AccountDetails, StartDate, EndDate) values (?,?,?,?,?,?);";
+        String insertCreatesQuery = "INSERT INTO creates (Email, ListingID) VALUES (?,?);";
+        String insertOfTypeQuery = "insert into OfType (ListingID, CategoryName) values (?,?);";
+        String curdateQuery = "select current_date()";
         String name = Lname.getText();
         String desc = Ldesc.getText();
         int amtreq = Integer.parseInt(AmtReq.getText());
-        String accdet = AccDetails.getText();
-        String sdate = Sdate.getText();
+        String accdet = AccDetails.getText();        
         String edate = Edate.getText();
-        
+        String selectedCategory = jComboBox1.getSelectedItem().toString();
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
             
-            PreparedStatement stm = conn.prepareCall(query);
+            Statement checkstm = conn.createStatement();
+            ResultSet rs1 = checkstm.executeQuery(curdateQuery);
+            rs1.next();
+            String curdate = rs1.getString("current_date()");
+            
+            PreparedStatement stm = conn.prepareCall(insertListingquery);
             stm.setString(1,name);
             stm.setString(2,desc);
             stm.setInt(3,amtreq);
             stm.setString(4, accdet);
-            stm.setString(5, sdate);
+            stm.setString(5, curdate);
             stm.setString(6, edate);
             stm.execute();
             
@@ -210,19 +229,40 @@ public class CreateListingPage extends javax.swing.JFrame {
             createsStm.setInt(2, listingID);
             createsStm.executeUpdate();
             
+            //Insert into Oftype table
+            PreparedStatement oftypestm = conn.prepareStatement(insertOfTypeQuery);
+            oftypestm.setInt(1, listingID);
+            oftypestm.setString(2, selectedCategory);
+            oftypestm.executeUpdate();
+            
             JOptionPane.showMessageDialog(this, "Listing Successfully created");
             Lname.setText(null);
             Ldesc.setText(null);
             AmtReq.setText(null);
-            AccDetails.setText(null);
-            Sdate.setText(null);
+            AccDetails.setText(null);            
             Edate.setText(null);
+            
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+//        String selectedCategory = jComboBox1.getSelectedItem().toString();
+//        String url = "jdbc:mysql://localhost:3306/fundaid";
+//        String mysqluser = "root";
+//        String mysqlpwd = "root@123";
+//        String ListingName = Lname.getText();
+//        String q1 = "select ListingID from listing where ListingName = '"+ListingName+"'";
+//        try{
+//            
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(this,e.getMessage());
+//        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -264,9 +304,9 @@ public class CreateListingPage extends javax.swing.JFrame {
     private javax.swing.JTextField Edate;
     private javax.swing.JTextField Ldesc;
     private javax.swing.JTextField Lname;
-    private javax.swing.JTextField Sdate;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -275,4 +315,5 @@ public class CreateListingPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
+
 }

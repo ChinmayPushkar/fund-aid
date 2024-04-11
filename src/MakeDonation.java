@@ -128,6 +128,36 @@ public class MakeDonation extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String url = "jdbc:mysql://localhost:3306/fundaid";
+        String mysqluser = "root";
+        String mysqlpwd = "root@123";
+        String edateQuery = "select ListingID, EndDate, AmountRequired, AmountReceived from listing;";
+        String cdateQuery = "select current_date();";
+        String updateQuery = "update listing set isActive = 0 where ListingID = ?;";
+        
+        try{
+            //checking if enddate is today
+            Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            Statement checkstm1 = conn.createStatement();
+            Statement checkstm2 = conn.createStatement();
+            ResultSet rs1 = checkstm1.executeQuery(edateQuery);
+            ResultSet rs2 = checkstm2.executeQuery(cdateQuery);
+            rs2.next();
+            String curdate = rs2.getString("current_date()");
+            while(rs1.next()){
+                String enddate = rs1.getString("EndDate");
+                int lid = rs1.getInt("ListingID");
+                float amt_req = rs1.getFloat("AmountRequired");
+                float amt_rec = rs1.getFloat("AmountReceived");
+                if(enddate.equals(curdate) || amt_req == amt_rec){
+                    PreparedStatement stm = conn.prepareCall(updateQuery);
+                    stm.setInt(1,lid);
+                    stm.execute();               
+                }
+            }
+        }catch(Exception e1){
+                    JOptionPane.showMessageDialog(this,e1.getMessage());
+                }
         AlistingviewPage alvp = new AlistingviewPage();
         alvp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -148,27 +178,11 @@ public class MakeDonation extends javax.swing.JFrame {
         String query2 = "insert into receives (ListingID) values (?);";
         String query3 = "insert into donates (Email) values (?);";
         String query4 = "update listing set AmountReceived = (select sum(Amount) from donation natural join receives group by ListingID having ListingID = (?)) where ListingID = (?);";
-        String query = "select EndDate from listing where ListingID = '"+LID+"';";
-        String Query = "select current_date();";
-        
+        String query5 = "select CategoryName from OfType where ListingID = '"+LID+"';";
+        String query6 = "update category set TotalAmount = TotalAmount + ? where CategoryName = ?;";
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
-            
-            //checking if enddate is today
-            Statement checkstm1 = conn.createStatement();
-            Statement checkstm2 = conn.createStatement();
-            ResultSet rs1 = checkstm1.executeQuery(query);
-            ResultSet rs2 = checkstm2.executeQuery(Query);
-            if(rs1.next() && rs2.next()){
-                String enddate = rs1.getString("EndDate");
-                String curdate = rs2.getString("current_date()");
-                
-                if(enddate.equals(curdate)){
-                    JOptionPane.showMessageDialog(this,"The Listing is no more active.");
-                    return;
-                }
-            }
-            
+              
             //populating donation table
             PreparedStatement stm1 = conn.prepareCall(query1);
             stm1.setFloat(1, AMT);
@@ -194,6 +208,19 @@ public class MakeDonation extends javax.swing.JFrame {
             stm4.setInt(2, LID);
             stm4.execute();
             stm4.close();
+            
+            //finding category name
+            Statement catstm = conn.createStatement();
+            ResultSet rss = catstm.executeQuery(query5);
+            rss.next();
+            String category = rss.getString("CategoryName");
+            
+            //update totalamount in category
+            PreparedStatement stm5 = conn.prepareCall(query6);
+            stm5.setFloat(1,AMT);
+            stm5.setString(2,category);
+            stm5.execute();
+            stm5.close();
                     
             Lid.setText(null);
             amt.setText(null);

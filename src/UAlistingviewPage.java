@@ -17,7 +17,12 @@ public class UAlistingviewPage extends javax.swing.JFrame {
     /**
      * Creates new form UAlistingviewPage
      */
+    String adminID;
     public UAlistingviewPage() {
+        
+    }
+    public UAlistingviewPage(String adminID) {
+        this.adminID = adminID;
         initComponents();
         setDefaultCloseOperation(UAlistingviewPage.DISPOSE_ON_CLOSE);
     }
@@ -43,7 +48,7 @@ public class UAlistingviewPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Listing ID", "Listing Name", "Description", "Amount Required", "Account Details", "Start Date", "End Date"
+                "Listing ID", "Listing Name", "Description", "Amount Required", "Account Details", "Start Date", "End Date", "Category"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -97,11 +102,22 @@ public class UAlistingviewPage extends javax.swing.JFrame {
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
         String mysqlpwd = "root@123";
-        String query = "select * from listing where isApproved = 0;";
+        String catQuery = "select CategoryName from managedby where Admin_ID = '"+adminID+"' ;";
+        
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            
+            //finding category
+            Statement catstm = conn.createStatement();
+            ResultSet rss = catstm.executeQuery(catQuery);
+            rss.next();
+            String category = rss.getString("CategoryName");
+            
+            String query = "select * from listing natural join OfType where isApproved = 0 and CategoryName = '"+category+"';";
+            
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(query);
+                  
             while(rs.next()){
                 String listingId = rs.getString("ListingID");
                 String listingName = rs.getString("ListingName");
@@ -110,7 +126,8 @@ public class UAlistingviewPage extends javax.swing.JFrame {
                 String accdet = rs.getString("AccountDetails");
                 String sdate = rs.getString("StartDate");
                 String edate = rs.getString("EndDate");
-                model.addRow(new Object[]{listingId,listingName,desc,amtreq,accdet,sdate,edate});
+                String cat = rs.getString("CategoryName");
+                model.addRow(new Object[]{listingId,listingName,desc,amtreq,accdet,sdate,edate,cat});
             }
             rs.close();
             stm.close();
