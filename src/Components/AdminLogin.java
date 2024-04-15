@@ -1,11 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Components;
 
+import Model.Admin;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
@@ -19,16 +19,19 @@ import swing.MyTextField;
  */
 public class AdminLogin extends javax.swing.JLayeredPane {
 
-    /**
-     * Creates new form AdminLogin
-     */
-    public AdminLogin() {
+    private Admin admin;
+
+    public Admin getAdmin() {
+        return admin;
+    }
+    
+    public AdminLogin(ActionListener eventLogin) {
         initComponents();
-        init();
+        init(eventLogin);
         login.setVisible(true);
     }
     
-    private void init(){
+    private void init(ActionListener eventLogin){
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]30[]15[]15[]30[]push"));
         JLabel label = new JLabel("Sign In");
         label.setFont(new Font("sansserif", 1, 30));
@@ -46,6 +49,17 @@ public class AdminLogin extends javax.swing.JLayeredPane {
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN IN");
+        cmd.addActionListener(eventLogin);
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               String Email = txtEmail.getText();
+               String Pswd = String.valueOf(txtPass.getPassword());
+               admin = new Admin(Email,Pswd);
+               txtEmail.setText(null);
+               txtPass.setText(null);
+            }
+        });
         login.add(cmd, "w 40%, h 40");
     }
 

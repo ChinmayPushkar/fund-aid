@@ -23,6 +23,7 @@ public class Main extends javax.swing.JFrame {
     private PanelCover cover;
     private PanelLoginAndRegister LoginAndRegister;
     private boolean isLogin;
+    private boolean isAdmin;
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
@@ -35,6 +36,7 @@ public class Main extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
+        
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -119,16 +121,46 @@ public class Main extends javax.swing.JFrame {
      
     }
     
+    private void login(){
+        
+        String url = "jdbc:mysql://localhost:3306/fundaid";
+        String mysqluser = "root";
+        String mysqlpwd = "123456789";
+        String pwd = LoginAndRegister.getLoginPswd();
+        String usermail = LoginAndRegister.getLoginEmail();
+        String query = ("select Password from User where Email = '"+usermail+"';");
+        try{
+            Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(query);
+            if(rs.next()){
+                String realpwd = rs.getString("Password");
+                
+                if(realpwd.equals(pwd)){
+                    this.dispose();
+                    //User Dashboard code goes here
+                    
+                }else{
+                    JOptionPane.showMessageDialog(this,"Email or Password Incorrect");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Wrong Email ID");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+       this.dispose();
+       
+    }
+    
     private void register(){
-        System.out.println("working");
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
         String mysqlpwd = "123456789";
         String query = "insert into user values (?,?,?)";
-        String pwd = LoginAndRegister.getLoginPswd();
-        String Mail = LoginAndRegister.getLoginEmail();
-        String Name = LoginAndRegister.getUsrName();
-        System.out.println(Name);
+        String Name = LoginAndRegister.getUser().Name;
+        String Mail = LoginAndRegister.getUser().Email;
+        String pwd = LoginAndRegister.getUser().Password;
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
             
@@ -144,47 +176,12 @@ public class Main extends javax.swing.JFrame {
             PreparedStatement stm = conn.prepareCall(query);
             stm.setString(1,Mail);
             stm.setString(2,Name);
-            stm.setString(3,pwd);
+            stm.setString(3, pwd);
             stm.execute();
-            JOptionPane.showMessageDialog(this, "Sign Up Successful\n Please head to LoginPage");
-            
+            JOptionPane.showMessageDialog(this, "Sign Up Successful");    
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-        
-    }   
-    
-    private void login(){
-        System.out.println("working");
-        String url = "jdbc:mysql://localhost:3306/fundaid";
-        String mysqluser = "root";
-        String mysqlpwd = "123456789";
-        String pwd = LoginAndRegister.getLoginPswd();
-        String usermail = LoginAndRegister.getLoginEmail();
-        System.out.println(usermail);
-        System.out.println(usermail);
-        String query = ("select Password from User where Email = '"+usermail+"';");
-        try{
-            Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(query);
-            if(rs.next()){
-                String realpwd = rs.getString("Password");
-                
-                if(realpwd.equals(pwd)){
-                    this.dispose();
-                    // User Dashboard code goes here
-                }else{
-                    JOptionPane.showMessageDialog(this,"Email or Password Incorrect");
-                }
-            }else{
-                JOptionPane.showMessageDialog(this, "Wrong Email ID");
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this,e.getMessage());
-        }
-       this.dispose();
-       
     }
     
     private void Adminlogin() {

@@ -2,6 +2,14 @@
 package Main;
 
 import Components.AdminLogin;
+import Model.Admin;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import net.miginfocom.swing.MigLayout;
 
 public class AdminMain extends javax.swing.JFrame {
@@ -19,7 +27,13 @@ public class AdminMain extends javax.swing.JFrame {
     private void init(){
         double loginSize = 100;
         layout = new MigLayout("fill, insets 0");
-        Login = new AdminLogin();
+        ActionListener eventLogin = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                login();
+            }
+        };
+        Login = new AdminLogin(eventLogin);
         bg.setLayout(layout);
         bg.add(Login,"width "+loginSize+"%, pos 1al 0 n 100%");
     }
@@ -59,6 +73,7 @@ public class AdminMain extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main() {
@@ -91,6 +106,36 @@ public class AdminMain extends javax.swing.JFrame {
                 new AdminMain().setVisible(true);
             }
         });
+    }
+    
+    private void login(){
+        System.out.println("working");
+        String url = "jdbc:mysql://localhost:3306/fundaid";
+        String mysqluser = "root";
+        String mysqlpwd = "123456789";
+        Admin admin = Login.getAdmin();
+        String query = ("select Password from Admin where Admin_ID = '"+admin.getEmail()+"';");
+        try{
+            Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(query);
+            if(rs.next()){
+                String realpwd = rs.getString("Password");
+                
+                if(realpwd.equals(admin.getPassword())){
+                    this.dispose();
+                    AdminDash.main(admin);
+                }else{
+                    JOptionPane.showMessageDialog(this,"Email or Password Incorrect");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Wrong Email ID");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+       this.dispose();
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,7 @@
 
 package Components;
 
+import Model.User;
 import swing.Button;
 import swing.MyPasswordField;
 import swing.MyTextField;
@@ -19,11 +20,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     private ActionListener event;
     private String LoginEmail;
     private String LoginPswd;
-    private String UsrName;
+    private User user;
 
-    public String getUsrName() {
-        return UsrName;
+    public User getUser() {
+        return user;
     }
+
     public String getLoginEmail() {
         return LoginEmail;
     }
@@ -33,7 +35,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     }
     
     
-    public PanelLoginAndRegister(ActionListener eventRegister,ActionListener eventLogin) {
+    public PanelLoginAndRegister(ActionListener eventRegister, ActionListener eventLogin) {
         initComponents();
         initRegister(eventRegister);
         initLogin(eventLogin);
@@ -69,16 +71,15 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               System.out.println("working");
-               UsrName = txtUser.getText();
-               LoginEmail = txtEmail.getText().trim();
-               LoginPswd = String.valueOf(txtPass.getPassword());
+               String Name = txtUser.getText().trim();
+               String Email = txtEmail.getText().trim();
+               String Pswd = String.valueOf(txtPass.getPassword());
+               user = new User(Name,Email,Pswd);
                txtUser.setText(null);
                txtEmail.setText(null);
                txtPass.setText(null);
             }
         });
-        
     }
     private void initLogin(ActionListener eventLogin){
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
@@ -115,9 +116,10 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               System.out.println("working");
                LoginEmail = txtEmail.getText().trim();
                LoginPswd = String.valueOf(txtPass.getPassword());
+               txtEmail.setText(null);
+               txtPass.setText(null);
             }
         });
     }
