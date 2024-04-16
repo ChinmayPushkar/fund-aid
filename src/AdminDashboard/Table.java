@@ -27,7 +27,7 @@ public class Table extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 TableHeader header = new TableHeader(o + "");
-                if (i1 == 4) {
+                if (i1 == 6) {
                     header.setHorizontalAlignment(JLabel.CENTER);
                 }
                 return header;
@@ -36,7 +36,7 @@ public class Table extends JTable {
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int row, int col) {
-                if (col != 4) {
+                if (col != 6) {
                     Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, row, col);         
                     if(selected==false){
                         com.setBackground(Color.WHITE);
@@ -59,7 +59,7 @@ public class Table extends JTable {
         setDefaultEditor(Object.class, new DefaultCellEditor(new JCheckBox()) {
             @Override
             public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            if (column == 4) {
+            if (column == 6) {
                 // Update actionPanel to hold the current ActionPanel
                 ActionPanel action = new ActionPanel();
                 action.initEvent(event, row);

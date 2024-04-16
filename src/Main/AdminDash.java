@@ -38,8 +38,7 @@ public class AdminDash extends javax.swing.JFrame {
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
         String mysqlpwd = "123456789";
-        String catQuery = "select CategoryName from Managedby where Admin_ID = '"+admin+"';";
-        
+        String catQuery = "select CategoryName from Managedby where Admin_ID = '"+admin+"';";  
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
             
@@ -49,19 +48,17 @@ public class AdminDash extends javax.swing.JFrame {
             rss.next();
             String category = rss.getString("CategoryName");
             String query = "select * from LISTING natural join OfType where isApproved = 0 and CategoryName = '"+category+"';";
-            
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(query);
             while(rs.next()){
                 String listingId = rs.getString("ListingID");
-                //String listingName = rs.getString("ListingName");
-                //String desc = rs.getString("Description");
+                String listingName = rs.getString("ListingName");
+                String desc = rs.getString("Description");
                 float amtreq = rs.getFloat("AmountRequired");
-                //String accdet = rs.getString("AccountDetails");
                 String sdate = rs.getString("StartDate");
-                //String edate = rs.getString("EndDate");
+                String edate = rs.getString("EndDate");
                 //String cat = rs.getString("CategoryName");
-                dashPanel2.addRow(new Object[]{listingId, "mikebhand@gmail.com", amtreq, sdate});
+                dashPanel2.addRow(new Object[]{listingId, listingName,desc,amtreq,sdate,edate});
             }
             rs.close();
             stm.close();
@@ -88,7 +85,11 @@ public class AdminDash extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
+        menu1.setPreferredSize(new java.awt.Dimension(190, 525));
+
         sp.setBorder(null);
+        sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         sp.setViewportView(dashPanel2);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
@@ -96,14 +97,15 @@ public class AdminDash extends javax.swing.JFrame {
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE))
+                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sp, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-            .addComponent(sp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+            .addComponent(sp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
