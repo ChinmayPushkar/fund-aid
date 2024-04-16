@@ -5,6 +5,7 @@
 package Components;
 
 import Windows.MakeDonation;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,11 +15,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import net.miginfocom.swing.MigLayout;
+import swing.ScrollBar;
 
 /**
  *
@@ -27,6 +32,7 @@ import javax.swing.table.TableCellRenderer;
 public class ListingView extends javax.swing.JFrame {
 
     private String userMail;
+
     /**
      * Creates new form ListingView
      *
@@ -38,21 +44,22 @@ public class ListingView extends javax.swing.JFrame {
         initComponents();
         init(categoryName);
         populateTable(categoryName);
-        
+
     }
 
     private void init(String categoryName) {
-        setTitle(categoryName + " Listings");
+        getContentPane().setBackground(Color.WHITE);
+        setTitle("View Listings");
 //        setSize(1000, 500);
         setLocationRelativeTo(null); // Center the frame on the screen
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this frame
         jLabel1.setText(categoryName + " Listings");
-        FlowLayout layout = new FlowLayout(FlowLayout.LEFT, 10, 10);
-        layout.setAlignOnBaseline(true); // Align components on their baseline
-        layout.setHgap(10); // Horizontal gap between components
-        layout.setVgap(10); // Vertical gap between components
-        jPanel1.setLayout(layout);
+        jPanel1.setLayout(new MigLayout("wrap"));
+        jPanel1.setBackground(Color.WHITE);
+        jScrollPane1.setVerticalScrollBar(new ScrollBar());
+        jScrollPane1.getVerticalScrollBar().setBackground(Color.WHITE);
     }
+        //        jPanel1.setLayout(layout);    }
 
     private void populateTable(String categoryName) {
         String url = "jdbc:mysql://localhost:3306/fundaid";
@@ -99,14 +106,18 @@ public class ListingView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 25, 1000, 500));
         setMaximumSize(new java.awt.Dimension(1000, 500));
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Listings in Category");
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 350));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 300));
@@ -116,34 +127,40 @@ public class ListingView extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jScrollPane1.setViewportView(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(434, 434, 434)
+                .addGap(276, 276, 276)
                 .addComponent(jLabel1)
-                .addContainerGap(451, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(308, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addGap(12, 12, 12)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(97, 97, 97)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addGap(97, 97, 97)))
         );
 
         pack();
@@ -153,5 +170,6 @@ public class ListingView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

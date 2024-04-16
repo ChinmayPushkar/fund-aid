@@ -32,10 +32,10 @@ public class CategoryBox extends javax.swing.JPanel {
     }
 
     private void init(String name) {
-        setBackground(new Color(0x99D062));
+        setBackground(new Color(7, 164, 121));
         setSize(240, 60);
         jLabel1.setText(name);
-        jLabel1.setForeground(Color.BLACK);
+        jLabel1.setForeground(Color.WHITE);
         jLabel1.setVerticalAlignment(JLabel.CENTER);
         jLabel1.setHorizontalAlignment(JLabel.CENTER);
         add(jLabel1);
@@ -63,7 +63,9 @@ public class CategoryBox extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(153, 208, 98));
+        setBackground(new java.awt.Color(7, 164, 121));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(7, 164, 121), 1, true));
+        setToolTipText("");
         setMaximumSize(new java.awt.Dimension(240, 60));
         setSize(new java.awt.Dimension(240, 60));
 
@@ -76,14 +78,14 @@ public class CategoryBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jLabel1)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
