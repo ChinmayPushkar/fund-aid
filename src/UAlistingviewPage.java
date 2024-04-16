@@ -101,7 +101,7 @@ public class UAlistingviewPage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
-        String mysqlpwd = "root@123";
+        String mysqlpwd = "123456789";
         String catQuery = "select CategoryName from managedby where Admin_ID = '"+adminID+"' ;";
         
         try{
@@ -166,6 +166,9 @@ public class UAlistingviewPage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(UAlistingviewPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

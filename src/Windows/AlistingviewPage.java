@@ -1,3 +1,5 @@
+package Windows;
+
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
@@ -96,7 +98,7 @@ public class AlistingviewPage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
-        String mysqlpwd = "root@123";
+        String mysqlpwd = "123456789";
         String query = "select * from listing where isApproved = 1 and isActive = 1;";
         try{
             Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);

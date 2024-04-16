@@ -138,7 +138,8 @@ public class Main extends javax.swing.JFrame {
                 
                 if(realpwd.equals(pwd)){
                     this.dispose();
-                    //User Dashboard code goes here
+                    HomePage homePage = new HomePage(usermail);
+                    homePage.setVisible(true);
                     
                 }else{
                     JOptionPane.showMessageDialog(this,"Email or Password Incorrect");

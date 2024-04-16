@@ -119,7 +119,6 @@ public class DashPanel extends javax.swing.JPanel {
             rs.next();
             float amt = rs.getFloat("TotalAmount");
             String cat = rs.getString("CategoryName");
-            System.out.println("working");
             card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/Icon/dollar-2.png")),cat,amt));
             
             rs.close();

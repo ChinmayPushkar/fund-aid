@@ -1,3 +1,5 @@
+import Windows.CreateListingPage;
+import Windows.MakeDonation;
 import java.sql.*;
 import javax.swing.*;
 
@@ -38,6 +40,7 @@ public class UserChoicePage extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 102));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,7 +101,7 @@ public class UserChoicePage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        MakeDonation md = new MakeDonation(usermail);
+        MakeDonation md = new MakeDonation(usermail, "1");
         md.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -109,7 +109,7 @@ public class AdminLoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
-        String mysqlpwd = "root@123";
+        String mysqlpwd = "123456789";
         String pwd = new String(password.getPassword());
         String adminID = AdminID.getText();
         String query = ("select Password from Admin where Admin_ID = '"+adminID+"';");

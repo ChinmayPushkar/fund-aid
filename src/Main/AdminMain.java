@@ -109,7 +109,6 @@ public class AdminMain extends javax.swing.JFrame {
     }
     
     private void login(){
-        System.out.println("working");
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
         String mysqlpwd = "123456789";

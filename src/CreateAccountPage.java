@@ -134,7 +134,7 @@ public class CreateAccountPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "jdbc:mysql://localhost:3306/fundaid";
         String mysqluser = "root";
-        String mysqlpwd = "root@123";
+        String mysqlpwd = "123456789";
         String query = "insert into user values (?,?,?)";
         String Name = name.getText();
         String Mail = email.getText();
