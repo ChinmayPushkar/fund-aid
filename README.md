@@ -1,4 +1,4 @@
-# HushPay
+# FundAid
 
 FundAid is a crowdfunding-cum-donation platform built with Java Swing and SQL. It allows users to make donations to various causes across multiple categories, which are approved for legitimacy by the Admins.
 
@@ -44,7 +44,7 @@ Contributions are welcome! If you would like to contribute to the project, pleas
 
 ## License
 
-The HushPay project is licensed under the MIT License.
+The FundAid project is licensed under the MIT License.
 
 ## Contact
 
