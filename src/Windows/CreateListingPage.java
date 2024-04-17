@@ -70,16 +70,7 @@ public class CreateListingPage extends javax.swing.JFrame {
 
         jLabel6.setText("Category");
 
-<<<<<<< HEAD
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Health & Medical Supplies", "Food & Nutrition", "Shelter & Housing", "Educatioan", "Marriage", "Animal Welfare", "Disaster Relief", "Arts & Culture", "Technology & Innovation", "Enviromental Conservation" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-=======
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Health & Medical Supplies", "Food & Nutrition", "Shelter & Housing", "Marriage", "Animal Welfare", "Disaster Relief", "Arts & Culture", "Technology & Innovation", "Enviromental Conservation" }));
->>>>>>> 7b5012bdda7f2aa387478ff707b05bbbe6ac32d9
 
         myTextField1.setToolTipText("");
 
