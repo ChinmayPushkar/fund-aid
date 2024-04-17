@@ -133,8 +133,6 @@ public class AdminMain extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-       this.dispose();
-       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
