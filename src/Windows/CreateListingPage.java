@@ -71,6 +71,11 @@ public class CreateListingPage extends javax.swing.JFrame {
         jLabel6.setText("Category");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Health & Medical Supplies", "Food & Nutrition", "Shelter & Housing", "Educatioan", "Marriage", "Animal Welfare", "Disaster Relief", "Arts & Culture", "Technology & Innovation", "Enviromental Conservation" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         myTextField1.setToolTipText("");
 
@@ -216,6 +221,10 @@ public class CreateListingPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_button2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

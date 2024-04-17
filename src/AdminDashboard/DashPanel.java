@@ -49,7 +49,10 @@ public class DashPanel extends javax.swing.JPanel {
                 String mysqlpwd = "123456789";
                 String query = "update LISTING set isApproved = 1, isActive = 1 where ListingID = ?;";
                 String query1 = "insert into ApprovedBy (Admin_ID, ListingID) values (?,?);";
+                String upquery = "Update category set TotalListings = TotalListings + 1 where CategoryName = ?;";
                 String LID = table.getValueAt(row, 0).toString();
+                String catquery = "select CategoryName from OfType where ListingID ='"+LID+"';";
+                
                 try{
                     Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);
                     
@@ -61,7 +64,20 @@ public class DashPanel extends javax.swing.JPanel {
                     stm1.setString(1, admin);
                     stm1.setString(2,LID);
                     stm1.execute();
-
+                    
+                    //finding category
+                    Statement catstm = conn.createStatement();
+                    ResultSet rss = catstm.executeQuery(catquery);
+                    rss.next();
+                    String category = rss.getString("CategoryName");
+                    System.out.println(category);
+                    //update totallisting in category
+                    PreparedStatement stm5 = conn.prepareCall(upquery);
+                    stm5.setString(1,category);
+                    //stm5.execute();
+                    stm5.executeUpdate();
+                    stm5.close();
+            
                     stm.close();
                     if (table.isEditing()) {
                     table.getCellEditor().stopCellEditing();
@@ -77,7 +93,7 @@ public class DashPanel extends javax.swing.JPanel {
                 String url = "jdbc:mysql://localhost:3306/fundaid";
                 String mysqluser = "root";
                 String mysqlpwd = "123456789";
-                String query = "update LISTING set isApproved = -1, isActive = 1 where ListingID = ?;";
+                String query = "Delete from LISTING where ListingID = ?;";
                 String LID = table.getValueAt(row, 0).toString();
                 try{
                     Connection conn = DriverManager.getConnection(url,mysqluser,mysqlpwd);

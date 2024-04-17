@@ -20,6 +20,9 @@ public class MakeDonation extends javax.swing.JFrame {
      */
     String usermail;
     String LID;
+    public MakeDonation(){
+        
+    }
     public MakeDonation(String usermail, String LID) {
         this.usermail = usermail;
         this.LID = LID;

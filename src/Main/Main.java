@@ -23,7 +23,6 @@ public class Main extends javax.swing.JFrame {
     private PanelCover cover;
     private PanelLoginAndRegister LoginAndRegister;
     private boolean isLogin;
-    private boolean isAdmin;
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
@@ -150,7 +149,7 @@ public class Main extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-       this.dispose();
+       //this.dispose();
        
     }
     

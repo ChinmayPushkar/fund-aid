@@ -57,7 +57,6 @@ public class AdminDash extends javax.swing.JFrame {
                 float amtreq = rs.getFloat("AmountRequired");
                 String sdate = rs.getString("StartDate");
                 String edate = rs.getString("EndDate");
-                //String cat = rs.getString("CategoryName");
                 dashPanel2.addRow(new Object[]{listingId, listingName,desc,amtreq,sdate,edate});
             }
             rs.close();
